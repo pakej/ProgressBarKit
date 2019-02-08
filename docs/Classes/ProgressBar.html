@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ProgressBar Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/ProgressBar" class="dashAnchor"></a>
+    <a title="ProgressBar Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">ProgressBarKit Docs</a> (100% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">ProgressBarKit Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        ProgressBar Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/ProgressBar.html">ProgressBar</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>ProgressBar</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">ProgressBar</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                </div>
+              </div>
+            <p>An animatable and customizable progress bar.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Initialization"></a>
+                <a name="//apple_ref/swift/Section/Initialization" class="dashAnchor"></a>
+                <a href="#/Initialization">
+                  <h3 class="section-name">Initialization</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14ProgressBarKit0aB0C11trackColour03barE014roundedCorners11cornerRadiiACSo7UIColorC_AISo12UIRectCornerVSo6CGSizeVtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(trackColour:barColour:roundedCorners:cornerRadii:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14ProgressBarKit0aB0C11trackColour03barE014roundedCorners11cornerRadiiACSo7UIColorC_AISo12UIRectCornerVSo6CGSizeVtcfc">init(trackColour:barColour:roundedCorners:cornerRadii:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes the progress bar instance and (optionally) rounding the given corners,
+based on the given (optional) corner radii.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">trackColour</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">,</span> <span class="nv">barColour</span><span class="p">:</span> <span class="kt">UIColor</span><span class="p">,</span> <span class="nv">roundedCorners</span><span class="p">:</span> <span class="kt">UIRectCorner</span> <span class="o">=</span> <span class="p">[],</span> <span class="nv">cornerRadii</span><span class="p">:</span> <span class="kt">CGSize</span> <span class="o">=</span> <span class="kt">CGSize</span><span class="o">.</span><span class="n">zero</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>trackColour</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The background UIColor of the progress bar.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>barColour</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The progress bar&rsquo;s UIColor.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>roundingCorners</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The corners to be rounded. (optional)</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cornerRadii</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The value to round each corners. (optional)</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Main"></a>
+                <a name="//apple_ref/swift/Section/Main" class="dashAnchor"></a>
+                <a href="#/Main">
+                  <h3 class="section-name">Main</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14ProgressBarKit0aB0C05setupaB02inySo6UIViewC_tF"></a>
+                    <a name="//apple_ref/swift/Method/setupProgressBar(in:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14ProgressBarKit0aB0C05setupaB02inySo6UIViewC_tF">setupProgressBar(in:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sets up the progress bar within the given container view.</p>
+
+<p>This method should only be called in <code>viewDidLayoutSubviews</code> to ensure the container has already been laid out
+correctly by AutoLayout.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">setupProgressBar</span><span class="p">(</span><span class="k">in</span> <span class="nv">container</span><span class="p">:</span> <span class="kt">UIView</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>container</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The container <code>view</code> to initialize the progress bar in.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14ProgressBarKit0aB0C03setaB5Value2toy12CoreGraphics7CGFloatV_tF"></a>
+                    <a name="//apple_ref/swift/Method/setProgressBarValue(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14ProgressBarKit0aB0C03setaB5Value2toy12CoreGraphics7CGFloatV_tF">setProgressBarValue(to:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Animates the progress bar from <code>0</code> until the given percentage value (in decimal number)
+of the total width of the progress bar container view.</p>
+
+<p>This method should only be called after calling <code>setupProgressBar(in:roundingCorners:cornerRadii:)</code> to ensure
+the progress bar is already initialized.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">setProgressBarValue</span><span class="p">(</span><span class="n">to</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>value</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The percentage (in decimal number) for the progress bar&rsquo;s width to expand to,
+               within a minimum value of 0, and a maximum value of 1.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2019 <a class="link" href="https://github.com/zaimramlan/ProgressBarKit" target="_blank" rel="external">Zaim Ramlan</a>. All rights reserved. (Last updated: 2019-02-09)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

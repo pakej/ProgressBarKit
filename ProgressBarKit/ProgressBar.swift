@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// An animatable and customizable progress bar.
 public class ProgressBar: NSObject {
     
     // MARK: - Properties
@@ -81,7 +82,7 @@ public class ProgressBar: NSObject {
     private var trackLayer: CAShapeLayer!
     private var progressLayer: CAShapeLayer!
     
-    // MARK: - Object Lifecycle
+    // MARK: - Initialization
     
     /// Initializes the progress bar instance and (optionally) rounding the given corners,
     /// based on the given (optional) corner radii.
