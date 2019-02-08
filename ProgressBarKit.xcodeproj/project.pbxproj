@@ -10,6 +10,7 @@
 		A4090984220D9C3700961D1D /* ProgressBarKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A409097A220D9C3700961D1D /* ProgressBarKit.framework */; };
 		A4090989220D9C3700961D1D /* ProgressBarKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4090988220D9C3700961D1D /* ProgressBarKitTests.swift */; };
 		A409098B220D9C3700961D1D /* ProgressBarKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A409097D220D9C3700961D1D /* ProgressBarKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A40909B4220DE75F00961D1D /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40909B3220DE75F00961D1D /* ProgressBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		A4090983220D9C3700961D1D /* ProgressBarKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProgressBarKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4090988220D9C3700961D1D /* ProgressBarKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarKitTests.swift; sourceTree = "<group>"; };
 		A409098A220D9C3700961D1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A40909B3220DE75F00961D1D /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 		A409097C220D9C3700961D1D /* ProgressBarKit */ = {
 			isa = PBXGroup;
 			children = (
+				A40909B3220DE75F00961D1D /* ProgressBar.swift */,
 				A409097D220D9C3700961D1D /* ProgressBarKit.h */,
 				A409097E220D9C3700961D1D /* Info.plist */,
 			);
@@ -148,6 +151,7 @@
 				TargetAttributes = {
 					A4090979220D9C3700961D1D = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 					A4090982220D9C3700961D1D = {
 						CreatedOnToolsVersion = 10.1;
@@ -194,6 +198,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A40909B4220DE75F00961D1D /* ProgressBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +346,7 @@
 		A409098F220D9C3700961D1D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -358,6 +364,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.zaimramlan.ProgressBarKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -366,6 +373,7 @@
 		A4090990220D9C3700961D1D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -391,6 +399,7 @@
 		A4090992220D9C3700961D1D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CT63RCWV2C;
 				INFOPLIST_FILE = ProgressBarKitTests/Info.plist;
@@ -409,6 +418,7 @@
 		A4090993220D9C3700961D1D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CT63RCWV2C;
 				INFOPLIST_FILE = ProgressBarKitTests/Info.plist;
