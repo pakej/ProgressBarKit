@@ -22,7 +22,7 @@ pod 'ProgressBarKit'
 
 ## Usage
 
-You can use the progress bar in 3 simple steps.
+It's very easy to use the progress bar. Simply import, initialize, setup and set progress value.
 
 ### Import and Initialize
 
@@ -31,7 +31,7 @@ import ProgressBarKit
 
 class ViewController: UIViewController {
     lazy var progressBar: ProgressBar = {
-        ProgressBar(roundedCorners: [.allCorners], cornerRadii: CGSize(width: 8, height: 8))
+        ProgressBar(trackColour: UIColor.black, barColour: UIColor.purple, roundedCorners: [.topRight, .bottomRight], cornerRadii: CGSize(width: 8, height: 8))
     }()
 }
 ```

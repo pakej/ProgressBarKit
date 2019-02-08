@@ -87,6 +87,8 @@ public class ProgressBar: NSObject {
     /// based on the given (optional) corner radii.
     ///
     /// - Parameters:
+    ///   - trackColour: The background UIColor of the progress bar.
+    ///   - barColour: The progress bar's UIColor.
     ///   - roundingCorners: The corners to be rounded. (optional)
     ///   - cornerRadii: The value to round each corners. (optional)
     public init(trackColour: UIColor, barColour: UIColor, roundedCorners: UIRectCorner = [], cornerRadii: CGSize = CGSize.zero) {
