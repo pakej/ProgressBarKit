@@ -95,7 +95,7 @@ public class ProgressBar: NSObject {
     /// - Parameters:
     ///   - container: The container `view` to initialize the progress bar in.
     ///
-    /// This method should only be called this method in `viewDidLayoutSubviews` to ensure the container has already been laid out
+    /// This method should only be called in `viewDidLayoutSubviews` to ensure the container has already been laid out
     /// correctly by AutoLayout.
     public func setupProgressBar(in container: UIView) {
         self.containerView = container
