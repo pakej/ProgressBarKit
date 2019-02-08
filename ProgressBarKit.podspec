@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.social_media_url   = "http://twitter.com/elkholeel"
 
   s.platform     = :ios, "10.0"
-  s.source       = { :git => "http://github.com/zaimramlan/ProgressBarKit.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/zaimramlan/ProgressBarKit.git", :tag => "#{s.version}" }
   s.source_files = "ProgressBarKit/*.{swift}"
 
   s.swift_version = "4.2"
