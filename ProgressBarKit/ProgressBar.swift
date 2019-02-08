@@ -8,24 +8,32 @@
 
 import Foundation
 
+/// An animatable and customizable progress bar.
 public class ProgressBar: NSObject {
     
     // MARK: - Properties
     
     // MARK: Internal
     
-    /// Current percentage of the width of the progress bar
-    /// to be displayed.
-    var currentPercentage: CGFloat = 0
+    /// The background colour of the progress bar before it is filled with
+    /// the bar.
+    var trackColour: UIColor
     
-    /// Container where the progress bar will be initialized in.
-    var containerView: UIView!
+    /// The colour of the progress bar.
+    var barColour: UIColor
     
     /// Corners to be rounded.
     var cornersToRound: UIRectCorner
     
     /// Corner radius for each corners to be rounded.
     var cornerRadii: CGSize
+    
+    /// Container where the progress bar will be initialized in.
+    var containerView: UIView!
+    
+    /// Current percentage of the width of the progress bar
+    /// to be displayed.
+    var currentPercentage: CGFloat = 0
     
     /// Gets the value of the starting frame where only the height value is initialized.
     ///
@@ -74,15 +82,19 @@ public class ProgressBar: NSObject {
     private var trackLayer: CAShapeLayer!
     private var progressLayer: CAShapeLayer!
     
-    // MARK: - Object Lifecycle
+    // MARK: - Initialization
     
     /// Initializes the progress bar instance and (optionally) rounding the given corners,
     /// based on the given (optional) corner radii.
     ///
     /// - Parameters:
+    ///   - trackColour: The background UIColor of the progress bar.
+    ///   - barColour: The progress bar's UIColor.
     ///   - roundingCorners: The corners to be rounded. (optional)
     ///   - cornerRadii: The value to round each corners. (optional)
-    public init(roundedCorners: UIRectCorner = [], cornerRadii: CGSize = CGSize.zero) {
+    public init(trackColour: UIColor, barColour: UIColor, roundedCorners: UIRectCorner = [], cornerRadii: CGSize = CGSize.zero) {
+        self.trackColour = trackColour
+        self.barColour = barColour
         self.cornersToRound = roundedCorners
         self.cornerRadii = cornerRadii
         super.init()
@@ -126,7 +138,7 @@ private extension ProgressBar {
     func layoutTrack() {
         trackLayer = CAShapeLayer.init()
         trackLayer.path = endPath(until: 1).cgPath
-        trackLayer.fillColor = UIColor.gray.cgColor
+        trackLayer.fillColor = trackColour.cgColor
         
         containerView.layer.insertSublayer(trackLayer, at: 0)
     }
@@ -136,7 +148,7 @@ private extension ProgressBar {
     func layoutBar() {
         progressLayer = CAShapeLayer.init()
         progressLayer.path = startPath().cgPath
-        progressLayer.fillColor = UIColor.blue.cgColor
+        progressLayer.fillColor = barColour.cgColor
         
         containerView.layer.insertSublayer(progressLayer, at: 1)
     }

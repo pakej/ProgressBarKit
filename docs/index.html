@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ProgressBarKit  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a title="ProgressBarKit  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">ProgressBarKit Docs</a> (100% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">ProgressBarKit Reference</a>
+        <img id="carat" src="img/carat.png" />
+        ProgressBarKit  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/ProgressBar.html">ProgressBar</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <h1 id='progressbarkit' class='heading'>ProgressBarKit</h1>
+
+<p>An animatable progress bar that can easily be used to display progress.</p>
+<h2 id='requirements' class='heading'>Requirements</h2>
+
+<ul>
+<li>Swift 4.2</li>
+<li>iOS 10 or later</li>
+</ul>
+<h2 id='installation' class='heading'>Installation</h2>
+<h3 id='cocoapods' class='heading'>Cocoapods</h3>
+
+<p>Add the following to your <code>Podfile</code>:</p>
+<pre class="highlight plaintext"><code>pod 'ProgressBarKit'
+</code></pre>
+<h2 id='documentation' class='heading'>Documentation</h2>
+<h2 id='usage' class='heading'>Usage</h2>
+
+<p>It&rsquo;s very easy to use the progress bar. Simply import, initialize, setup and set progress value.</p>
+<h3 id='import-and-initialize' class='heading'>Import and Initialize</h3>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">ProgressBarKit</span>
+
+<span class="kd">class</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt">UIViewController</span> <span class="p">{</span>
+    <span class="kd">lazy</span> <span class="k">var</span> <span class="nv">progressBar</span><span class="p">:</span> <span class="kt">ProgressBar</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="kt">ProgressBar</span><span class="p">(</span><span class="nv">trackColour</span><span class="p">:</span> <span class="kt">UIColor</span><span class="o">.</span><span class="n">black</span><span class="p">,</span> <span class="nv">barColour</span><span class="p">:</span> <span class="kt">UIColor</span><span class="o">.</span><span class="n">purple</span><span class="p">,</span> <span class="nv">roundedCorners</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="n">topRight</span><span class="p">,</span> <span class="o">.</span><span class="n">bottomRight</span><span class="p">],</span> <span class="nv">cornerRadii</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">(</span><span class="nv">width</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="p">}()</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id='intial-setup' class='heading'>Intial Setup</h3>
+
+<p>Specify the <code>UIView</code> that will be the progress bar&rsquo;s container view and initializes the progress bar in it.</p>
+<pre class="highlight swift"><code><span class="n">progressBar</span><span class="o">.</span><span class="nf">setup</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="n">myContainerView</span><span class="p">)</span>
+</code></pre>
+
+<p><sub>Important:<br>
+This method should only be called in <code>viewDidLayoutSubviews</code> to ensure the container view has already been laid out correctly by AutoLayout.</sub></p>
+<h3 id='set-progress-value' class='heading'>Set Progress Value</h3>
+
+<p>Animates the progress bar from <code>0</code> until the given percentage value (in decimal number) of the total width of the progress bar container view.</p>
+
+<p>ie. Given, <code>value = 0.75</code> and <code>containerView.frame.width</code> is <code>100</code><br>
+The progress bar will only be expanded until a width of <code>0.75 * 100</code> which is 75 points.</p>
+<pre class="highlight swift"><code><span class="n">progressBar</span><span class="o">.</span><span class="nf">setProgressBarValue</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">)</span>
+</code></pre>
+
+<p><sub>Note:<br>
+This method should only be called after calling <code>setupProgressBar(in:roundingCorners:cornerRadii:)</code> to ensure the progress bar is already initialized.</sub></p>
+<h2 id='license' class='heading'>License</h2>
+
+<p>Under the MIT license. See LICENSE file for details</p>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2019 <a class="link" href="https://github.com/zaimramlan/ProgressBarKit" target="_blank" rel="external">Zaim Ramlan</a>. All rights reserved. (Last updated: 2019-02-09)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
