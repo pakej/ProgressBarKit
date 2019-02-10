@@ -1,5 +1,9 @@
 # Changelogs
 
+## 1.0.2
+
+- Updated missing docs
+
 ## 1.0.1
 
 - Fixed README issue
