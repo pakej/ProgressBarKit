@@ -221,18 +221,19 @@ public class ProgressBar: NSObject {
     }
     
     /// Animates the progress bar from `0` until the given percentage value (in decimals)
-    /// of the total width of the progress bar container view.
+    /// of the total width of the progress bar container view. Defaults to 0.75.
     ///
     /// - Parameters:
     ///   - value: The percentage (in decimals) for the progress bar's width to expand to,
     ///            within a minimum value of 0, and a maximum value of 1.
+    ///   - duration: The animation duration to animate the progress bar. (optional)
 
     /**
      * This method should only be called after calling `setupProgressBar(in:roundingCorners:cornerRadii:)` to ensure
      * the progress bar is already initialized.
      */
-    public func setProgressBarValue(to value: CGFloat) {
-        makeProgress(until: value)
+    public func setProgressBarValue(to value: CGFloat, with duration: CFTimeInterval = 0.75) {
+        makeProgress(until: value, with: duration)
     }
 }
 
@@ -303,13 +304,13 @@ private extension ProgressBar {
     
     // MARK: - Progress Bar Expansion
     
-    func makeProgress(until rawValue: CGFloat) {
+    func makeProgress(until rawValue: CGFloat, with duration: CFTimeInterval) {
         let value = sanitise(rawValue)
         
         let animation = CABasicAnimation.init(keyPath: "path")
         animation.fromValue = startPath(for: barConfiguration).cgPath
         animation.toValue = endPath(for: barConfiguration, until: value).cgPath
-        animation.duration = 0.75
+        animation.duration = duration
         animation.fillMode = .forwards
         animation.timingFunction = CAMediaTimingFunction.init(name: .default)
         animation.isRemovedOnCompletion = false
