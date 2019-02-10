@@ -223,9 +223,9 @@ public class ProgressBar: NSObject {
     ///            within a minimum value of 0, and a maximum value of 1.
     ///   - duration: The animation duration to animate the progress bar. (optional)
     ///
-    /// This method should only be called after calling `setupProgressBar(in:roundingCorners:cornerRadii:)` to ensure
+    /// This method should only be called after calling `setupProgressBar(in:)` to ensure
     /// the progress bar is already initialized.
-    public func setProgressBarValue(to value: CGFloat, with duration: CFTimeInterval = 0.75) {
+    public func setProgressBarValue(to value: CGFloat, duration: Double = 0.75) {
         makeProgress(until: value, with: duration)
     }
 }
@@ -297,7 +297,7 @@ private extension ProgressBar {
     
     // MARK: - Progress Bar Expansion
     
-    func makeProgress(until rawValue: CGFloat, with duration: CFTimeInterval) {
+    func makeProgress(until rawValue: CGFloat, with duration: Double) {
         let value = sanitise(rawValue)
         
         let animation = CABasicAnimation.init(keyPath: "path")
@@ -307,7 +307,7 @@ private extension ProgressBar {
         animation.fillMode = .forwards
         animation.timingFunction = CAMediaTimingFunction.init(name: .default)
         animation.isRemovedOnCompletion = false
-        barLayer.add(animation, forKey: nil)
+        barLayer.add(animation, forKey: animation.keyPath)
         
         currentPercentage = value
     }
