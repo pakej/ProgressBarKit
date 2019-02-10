@@ -71,13 +71,13 @@ public class ProgressBar: NSObject {
     
     // MARK: Paths
     
-    /// The starting path for the progress bar's bar.
+    /// The starting path for the progress bar's bar or track.
     func startPath(for config: Any? = nil) -> UIBezierPath {
         let config = parse(config: config)
         return UIBezierPath.init(roundedRect: startFrame(), byRoundingCorners: config.roundingCorners, cornerRadii: config.cornerRadii)
     }
     
-    /// The end path for the progress bar based on the given percentage value (in decimals).
+    /// The end path for the progress bar's bar or track, based on the given percentage value (in decimals).
     func endPath(for config: Any? = nil, until value: CGFloat) -> UIBezierPath {
         let config = parse(config: config)
         return UIBezierPath.init(roundedRect: endFrame(until: value), byRoundingCorners: config.roundingCorners, cornerRadii: config.cornerRadii)
@@ -107,13 +107,77 @@ public class ProgressBar: NSObject {
     
     // MARK: - Initialization
     
-    /// Initializes the progress bar instance and (optionally) rounding the given corners,
-    /// based on the given (optional) corner radii.
+    /// Initializes the progress bar instance and (optionally) based on the given
+    /// progress bar's track configuration(s) and bar configuration.
     ///
     /// - Parameters:
     ///   - trackColour: The progress bar's track UIColor.
     ///   - barColour: The progress bar's bar UIColor.
-    ///   - configurations: The configurations for the progress bar's track and bar. (optional)
+    ///   - configurations: The `PBConfiguration` that takes in the configurations for
+    ///                     the progress bar's track and bar. (optional)
+    ///
+    /// The `PBConfiguration` takes in 2 keys which are `.track` and `.bar`. Both represents the progress bar's
+    /// track and bar elements, respectively.
+    ///
+    /// The `PBConfiguration.track` accepts an Array of `PBTrackConfiguration`s which will configure
+    /// the progress bar's track display. Also, it determines the number of progress bar that
+    /// will be displayed.
+    ///
+    /// The above, can be observed in the following examples:
+    ///
+    /// - Display 1 progress bar with default track configurations
+    ///
+    ///        let bar = ProgressBar(trackColour: .black, barColour: .purple)
+    ///
+    /// - Display 1 progress bar with default track configurations
+    ///
+    ///        let trackConfig = PBTrackConfiguration(
+    ///            roundingCorners: [.allCorners],
+    ///            cornerRadii: CGSize(width: 8, height: 8),
+    ///            edgeInsets: UIEdgeInsets(top: 2.5, left: 2.5, bottom: 2.5, right: 2.5)
+    ///        )
+    ///
+    ///        let bar = ProgressBar(trackColour: .black, barColour: .purple, configurations: [.track: [trackConfig]])
+    ///
+    /// - Display 2 or more progress bars with default or custom track configurations
+    ///
+    ///        let firstTrackConfig = PBTrackConfiguration(
+    ///            roundingCorners: [.topLeft, .bottomLeft],
+    ///            cornerRadii: CGSize(width: 8, height: 8),
+    ///            edgeInsets: UIEdgeInsets(top: 2.5, left: 2.5, bottom: 2.5, right: 2.5)
+    ///        )
+    ///
+    ///        let lastTrackConfig = PBTrackConfiguration(
+    ///            roundingCorners: [.topRight, .bottomRight],
+    ///            cornerRadii: CGSize(width: 8, height: 8),
+    ///            edgeInsets: UIEdgeInsets(top: 2.5, left: 2.5, bottom: 2.5, right: 2.5)
+    ///        )
+    ///
+    ///        // use default values
+    ///        let otherTrackConfig = PBTrackConfiguration()
+    ///
+    ///        // this will display 3 tracks
+    ///        let configs = [firstTrackConfig, otherTrackConfig, lastTrackConfig]
+    ///        let bar = ProgressBar(trackColour: .black, barColour: .purple, configurations: [.track: configs])
+    ///
+    /// The `PBConfiguration.bar` accepts an object of type `PBBarConfiguration` which will configure
+    /// the progress bar's bar display.
+    ///
+    /// Similar with the progress bar's track configurations, the progress bar's bar configuration can also be
+    /// customized, or used with default values.
+    ///
+    /// - Display 1 progress bar with default bar configuration
+    ///
+    ///        let bar = ProgressBar(trackColour: .black, barColour: .purple)
+    ///
+    /// - Display 1 progress bar with default bar configuration
+    ///
+    ///        let barConfig = PBBarConfiguration(
+    ///            roundingCorners: [.allCorners],
+    ///            cornerRadii: CGSize(width: 8, height: 8)
+    ///        )
+    ///
+    ///        let bar = ProgressBar(trackColour: .black, barColour: .purple, configurations: [.bar: barConfig])
     public init(trackColour: UIColor, barColour: UIColor, configurations: [PBConfigurations: Any] = [:]) {
         self.trackColour = trackColour
         self.barColour = barColour
