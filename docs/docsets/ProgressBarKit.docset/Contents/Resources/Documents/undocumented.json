@@ -1,12 +1,6 @@
 {
   "warnings": [
-    {
-      "file": "/Users/zieras/Documents/Projects/ios/pods/ProgressBarKit/ProgressBarKit/ProgressBar.swift",
-      "line": 11,
-      "symbol": "ProgressBar",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    }
+
   ],
   "source_directory": "/Users/zieras/Documents/Projects/ios/pods/ProgressBarKit"
 }
