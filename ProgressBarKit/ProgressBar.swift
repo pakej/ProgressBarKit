@@ -56,13 +56,12 @@ public class ProgressBar: NSObject {
     /// - Parameter value: The percentage (in decimals) for the progress bar's width to expand to,
     ///                    within a minimum value of 0, and a maximum value of 1.
     /// - Returns: A CGRect that represents the ending frame.
-
-    /**
-     * The `width` and `height` value is determined as follows:
-     *
-     *      let width = value * containerView.frame.width
-     *      let height = containerView.frame.height
-     */
+    ///
+    /// The `width` and `height` value is determined as follows:
+    ///
+    ///      let width = value * containerView.frame.width
+    ///      let height = containerView.frame.height
+    ///
     func endFrame(until value: CGFloat) -> CGRect {
         var frame = CGRect.zero
         frame.size.width = value * containerView.frame.width
@@ -106,7 +105,7 @@ public class ProgressBar: NSObject {
     private var trackLayer: CAShapeLayer!
     private var barLayer: CAShapeLayer!
     
-    // MARK: - Initialization
+    // MARK: - Initializers
     
     /// Initializes the progress bar instance and (optionally) based on the given
     /// progress bar's track configuration(s) and bar configuration.
@@ -116,81 +115,79 @@ public class ProgressBar: NSObject {
     ///   - barColour: The progress bar's bar UIColor.
     ///   - configurations: The `PBConfiguration` that takes in the configurations for
     ///                     the progress bar's track and bar. (optional)
-
-    /**
-     * The `PBConfiguration` takes in 2 keys which are `.track` and `.bar`. Both represents the progress bar's
-     * track and bar elements, respectively.
-     *
-     * The `PBConfiguration.track` accepts an Array of `PBTrackConfiguration`s which will configure
-     * the progress bar's track display. Also, it determines the number of progress bar that
-     * will be displayed.
-     *
-     * The above, can be observed in the following examples:
-     *
-     * - Display 1 progress bar with default track configurations
-     *
-     * ```
-     * let bar = ProgressBar(trackColour: .black, barColour: .purple)
-     * ```
-     *
-     * - Display 1 progress bar with default track configurations
-     *
-     * ```
-     * let trackConfig = PBTrackConfiguration(
-     *     roundingCorners: [.allCorners],
-     *     cornerRadii: CGSize(width: 8, height: 8),
-     *     edgeInsets: UIEdgeInsets(top: 2.5, left: 2.5, bottom: 2.5, right: 2.5)
-     * )
-     *
-     * let bar = ProgressBar(trackColour: .black, barColour: .purple, configurations: [.track: [trackConfig]])
-     * ```
-     *
-     * - Display 2 or more progress bars with default or custom track configurations
-     *
-     * ```
-     * let firstTrackConfig = PBTrackConfiguration(
-     *     roundingCorners: [.topLeft, .bottomLeft],
-     *     cornerRadii: CGSize(width: 8, height: 8),
-     *     edgeInsets: UIEdgeInsets(top: 2.5, left: 2.5, bottom: 2.5, right: 2.5)
-     * )
-     *
-     * let lastTrackConfig = PBTrackConfiguration(
-     *     roundingCorners: [.topRight, .bottomRight],
-     *     cornerRadii: CGSize(width: 8, height: 8),
-     *     edgeInsets: UIEdgeInsets(top: 2.5, left: 2.5, bottom: 2.5, right: 2.5)
-     * )
-     *
-     * // use default values
-     * let otherTrackConfig = PBTrackConfiguration()
-     *
-     * // this will display 3 tracks
-     * let configs = [firstTrackConfig, otherTrackConfig, lastTrackConfig]
-     * let bar = ProgressBar(trackColour: .black, barColour: .purple, configurations: [.track: configs])
-     * ```
-     *
-     * The `PBConfiguration.bar` accepts an object of type `PBBarConfiguration` which will configure
-     * the progress bar's bar display.
-     *
-     * Similar with the progress bar's track configurations, the progress bar's bar configuration can also be
-     * customized, or used with default values.
-     *
-     * - Display the progress bar with default bar configuration
-     *
-     * ```
-     * let bar = ProgressBar(trackColour: .black, barColour: .purple)
-     * ```
-     *
-     * - Display the progress bar with default bar configuration
-     *
-     * ```
-     * let barConfig = PBBarConfiguration(
-     *     roundingCorners: [.allCorners],
-     *     cornerRadii: CGSize(width: 8, height: 8)
-     * )
-     *
-     * let bar = ProgressBar(trackColour: .black, barColour: .purple, configurations: [.bar: barConfig])
-     * ```
-     */
+    ///
+    /// The `PBConfiguration` takes in 2 keys which are `.track` and `.bar`. Both represents the progress bar's
+    /// track and bar elements, respectively.
+    ///
+    /// The `PBConfiguration.track` accepts an Array of `PBTrackConfiguration`s which will configure
+    /// the progress bar's track display. Also, it determines the number of progress bar that
+    /// will be displayed.
+    ///
+    /// The above, can be observed in the following examples:
+    ///
+    /// - Display 1 progress bar with default track configurations
+    ///
+    /// ```
+    /// let bar = ProgressBar(trackColour: .black, barColour: .purple)
+    /// ```
+    ///
+    /// - Display 1 progress bar with default track configurations
+    ///
+    /// ```
+    /// let trackConfig = PBTrackConfiguration(
+    ///     roundingCorners: [.allCorners],
+    ///     cornerRadii: CGSize(width: 8, height: 8),
+    ///     edgeInsets: UIEdgeInsets(top: 2.5, left: 2.5, bottom: 2.5, right: 2.5)
+    /// )
+    ///
+    /// let bar = ProgressBar(trackColour: .black, barColour: .purple, configurations: [.track: [trackConfig]])
+    /// ```
+    ///
+    /// - Display 2 or more progress bars with default or custom track configurations
+    ///
+    /// ```
+    /// let firstTrackConfig = PBTrackConfiguration(
+    ///     roundingCorners: [.topLeft, .bottomLeft],
+    ///     cornerRadii: CGSize(width: 8, height: 8),
+    ///     edgeInsets: UIEdgeInsets(top: 2.5, left: 2.5, bottom: 2.5, right: 2.5)
+    /// )
+    ///
+    /// let lastTrackConfig = PBTrackConfiguration(
+    ///     roundingCorners: [.topRight, .bottomRight],
+    ///     cornerRadii: CGSize(width: 8, height: 8),
+    ///     edgeInsets: UIEdgeInsets(top: 2.5, left: 2.5, bottom: 2.5, right: 2.5)
+    /// )
+    ///
+    /// // use default values
+    /// let otherTrackConfig = PBTrackConfiguration()
+    ///
+    /// // this will display 3 tracks
+    /// let configs = [firstTrackConfig, otherTrackConfig, lastTrackConfig]
+    /// let bar = ProgressBar(trackColour: .black, barColour: .purple, configurations: [.track: configs])
+    /// ```
+    ///
+    /// The `PBConfiguration.bar` accepts an object of type `PBBarConfiguration` which will configure
+    /// the progress bar's bar display.
+    ///
+    /// Similar with the progress bar's track configurations, the progress bar's bar configuration can also be
+    /// customized, or used with default values.
+    ///
+    /// - Display the progress bar with default bar configuration
+    ///
+    /// ```
+    /// let bar = ProgressBar(trackColour: .black, barColour: .purple)
+    /// ```
+    ///
+    /// - Display the progress bar with default bar configuration
+    ///
+    /// ```
+    /// let barConfig = PBBarConfiguration(
+    ///     roundingCorners: [.allCorners],
+    ///     cornerRadii: CGSize(width: 8, height: 8)
+    /// )
+    ///
+    /// let bar = ProgressBar(trackColour: .black, barColour: .purple, configurations: [.bar: barConfig])
+    /// ```
     public init(trackColour: UIColor, barColour: UIColor, configurations: [PBConfigurations: Any] = [:]) {
         self.trackColour = trackColour
         self.barColour = barColour
@@ -207,11 +204,9 @@ public class ProgressBar: NSObject {
     ///
     /// - Parameters:
     ///   - container: The container `view` to initialize the progress bar in.
-
-    /**
-     * This method should only be called ONCE, and only in `viewDidLayoutSubviews` to ensure the `container` has already been laid out
-     * correctly by AutoLayout.
-     */
+    ///
+    /// This method should only be called ONCE, and only in `viewDidLayoutSubviews` to ensure the `container` has already been laid out
+    /// correctly by AutoLayout.
     public func setupProgressBar(in container: UIView) {
         self.containerView = container
         
@@ -221,18 +216,17 @@ public class ProgressBar: NSObject {
     }
     
     /// Animates the progress bar from `0` until the given percentage value (in decimals)
-    /// of the total width of the progress bar container view.
+    /// of the total width of the progress bar container view. Animation duration defaults to 0.75.
     ///
     /// - Parameters:
     ///   - value: The percentage (in decimals) for the progress bar's width to expand to,
     ///            within a minimum value of 0, and a maximum value of 1.
-
-    /**
-     * This method should only be called after calling `setupProgressBar(in:roundingCorners:cornerRadii:)` to ensure
-     * the progress bar is already initialized.
-     */
-    public func setProgressBarValue(to value: CGFloat) {
-        makeProgress(until: value)
+    ///   - duration: The animation duration to animate the progress bar. (optional)
+    ///
+    /// This method should only be called after calling `setupProgressBar(in:)` to ensure
+    /// the progress bar is already initialized.
+    public func setProgressBarValue(to value: CGFloat, duration: Double = 0.75) {
+        makeProgress(until: value, with: duration)
     }
 }
 
@@ -303,17 +297,17 @@ private extension ProgressBar {
     
     // MARK: - Progress Bar Expansion
     
-    func makeProgress(until rawValue: CGFloat) {
+    func makeProgress(until rawValue: CGFloat, with duration: Double) {
         let value = sanitise(rawValue)
         
         let animation = CABasicAnimation.init(keyPath: "path")
         animation.fromValue = startPath(for: barConfiguration).cgPath
         animation.toValue = endPath(for: barConfiguration, until: value).cgPath
-        animation.duration = 0.75
+        animation.duration = duration
         animation.fillMode = .forwards
         animation.timingFunction = CAMediaTimingFunction.init(name: .default)
         animation.isRemovedOnCompletion = false
-        barLayer.add(animation, forKey: nil)
+        barLayer.add(animation, forKey: animation.keyPath)
         
         currentPercentage = value
     }
