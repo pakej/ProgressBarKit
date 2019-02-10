@@ -1,5 +1,13 @@
 # Changelogs
 
+## 1.0.0
+
+- Official progress bar stable release
+- Added support for custom track and bar colours
+- Added support for custom track and bar gradient colours
+- Added support for custom track and bar configurations
+- Added support for custom bar animation duration
+
 ## 0.0.1
 
 - Initial progress bar creation
