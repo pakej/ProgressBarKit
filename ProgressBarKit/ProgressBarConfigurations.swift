@@ -20,6 +20,8 @@ public enum PBConfigurations {
 /// The available progress bar's track configurations.
 public struct PBTrackConfiguration {
     
+    // MARK: - Properties
+    
     /// The corners to be rounded. (optional)
     public var roundingCorners: UIRectCorner = []
     
@@ -28,6 +30,8 @@ public struct PBTrackConfiguration {
     
     /// The edge insets of the progress bar. (optional)
     public var edgeInsets: UIEdgeInsets = .zero
+    
+    // MARK: - Initializers
 
     /// Initialize `PBTrackConfiguration` with default values.
     public init() {}
@@ -48,11 +52,15 @@ public struct PBTrackConfiguration {
 /// The available progress bar's bar configurations.
 public struct PBBarConfiguration {
     
+    // MARK: - Properties
+    
     /// The corners to be rounded. (optional)
     public var roundingCorners: UIRectCorner = []
     
     /// The value to round each corners. (optional)
     public var cornerRadii: CGSize = .zero
+    
+    // MARK: - Initializers
 
     /// Initialize `PBBarConfiguration` with default values.
     public init() {}
