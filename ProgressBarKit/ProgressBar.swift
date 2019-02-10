@@ -111,83 +111,37 @@ public class ProgressBar: NSObject {
     /// progress bar's track configuration(s) and bar configuration.
     ///
     /// - Parameters:
-    ///   - trackColour: The progress bar's track UIColor.
-    ///   - barColour: The progress bar's bar UIColor.
+    ///   - trackColour: An array of the progress bar's track UIColor.
+    ///   - barColour: An array of the progress bar's bar UIColor.
     ///   - configurations: The `PBConfiguration` that takes in the configurations for
     ///                     the progress bar's track and bar. (optional)
+    ///
+    /// `trackColour`
+    ///
+    /// The number of elements in this array will determine whether the progress bar's track, would
+    /// be a solid colour (single element), or gradient colours (more than 1 element).
+    ///
+    /// `barColour`
+    ///
+    /// The number of elements in this array will determine whether the progress bar's bar, would
+    /// be a solid colour (single element), or gradient colours (more than 1 element).
+    ///
+    /// `configurations`
     ///
     /// The `PBConfiguration` takes in 2 keys which are `.track` and `.bar`. Both represents the progress bar's
     /// track and bar elements, respectively.
     ///
-    /// The `PBConfiguration.track` accepts an Array of `PBTrackConfiguration`s which will configure
-    /// the progress bar's track display. Also, it determines the number of progress bar that
-    /// will be displayed.
+    /// The `PBConfiguration.track` accepts an Array of `PBTrackConfiguration`s which will:
     ///
-    /// The above, can be observed in the following examples:
+    /// - Configure the progress bar's track display.
+    /// - Determine the number of progress bar that will be displayed.
+    /// (1 track configuration represents 1 progress bar track)
     ///
-    /// - Display 1 progress bar with default track configurations
-    ///
-    /// ```
-    /// let bar = ProgressBar(trackColour: .black, barColour: .purple)
-    /// ```
-    ///
-    /// - Display 1 progress bar with default track configurations
-    ///
-    /// ```
-    /// let trackConfig = PBTrackConfiguration(
-    ///     roundingCorners: [.allCorners],
-    ///     cornerRadii: CGSize(width: 8, height: 8),
-    ///     edgeInsets: UIEdgeInsets(top: 2.5, left: 2.5, bottom: 2.5, right: 2.5)
-    /// )
-    ///
-    /// let bar = ProgressBar(trackColour: .black, barColour: .purple, configurations: [.track: [trackConfig]])
-    /// ```
-    ///
-    /// - Display 2 or more progress bars with default or custom track configurations
-    ///
-    /// ```
-    /// let firstTrackConfig = PBTrackConfiguration(
-    ///     roundingCorners: [.topLeft, .bottomLeft],
-    ///     cornerRadii: CGSize(width: 8, height: 8),
-    ///     edgeInsets: UIEdgeInsets(top: 2.5, left: 2.5, bottom: 2.5, right: 2.5)
-    /// )
-    ///
-    /// let lastTrackConfig = PBTrackConfiguration(
-    ///     roundingCorners: [.topRight, .bottomRight],
-    ///     cornerRadii: CGSize(width: 8, height: 8),
-    ///     edgeInsets: UIEdgeInsets(top: 2.5, left: 2.5, bottom: 2.5, right: 2.5)
-    /// )
-    ///
-    /// // use default values
-    /// let otherTrackConfig = PBTrackConfiguration()
-    ///
-    /// // this will display 3 tracks
-    /// let configs = [firstTrackConfig, otherTrackConfig, lastTrackConfig]
-    /// let bar = ProgressBar(trackColour: .black, barColour: .purple, configurations: [.track: configs])
-    /// ```
-    ///
-    /// The `PBConfiguration.bar` accepts an object of type `PBBarConfiguration` which will configure
+    /// On the other hand, the `PBConfiguration.bar` accepts an object of type `PBBarConfiguration` which will configure
     /// the progress bar's bar display.
     ///
     /// Similar with the progress bar's track configurations, the progress bar's bar configuration can also be
     /// customized, or used with default values.
-    ///
-    /// - Display the progress bar with default bar configuration
-    ///
-    /// ```
-    /// let bar = ProgressBar(trackColour: .black, barColour: .purple)
-    /// ```
-    ///
-    /// - Display the progress bar with default bar configuration
-    ///
-    /// ```
-    /// let barConfig = PBBarConfiguration(
-    ///     roundingCorners: [.allCorners],
-    ///     cornerRadii: CGSize(width: 8, height: 8)
-    /// )
-    ///
-    /// let bar = ProgressBar(trackColour: .black, barColour: .purple, configurations: [.bar: barConfig])
-    /// ```
     public init(trackColour: [UIColor], barColour: [UIColor], configurations: [PBConfigurations: Any] = [:]) {
         self.trackColour = trackColour
         self.barColour = barColour
@@ -250,6 +204,10 @@ private extension ProgressBar {
     
     // MARK: - Layer Creations
     
+    /// Provide dynamic support for solid and gradient layers, based on the `colours.count`.
+    ///
+    /// Solid layers would only have a single UIColor while Gradient layers may have
+    /// more than 1.
     func layoutLayer(path: UIBezierPath, fill colours: [UIColor]) -> CALayer {
         if isSolid(colours), let colour = colours.first {
             return layoutShapeLayer(path: path, fill: colour)
@@ -321,24 +279,6 @@ private extension ProgressBar {
     
     func makeProgress(until rawValue: CGFloat, with duration: Double) {
         let value = sanitise(rawValue)
-        
-//        let animation = CABasicAnimation.init(keyPath: "path")
-//        animation.fromValue = startPath(for: barConfiguration).cgPath
-//        animation.toValue = endPath(for: barConfiguration, until: value).cgPath
-//        animation.duration = duration
-//        animation.fillMode = .forwards
-//        animation.timingFunction = CAMediaTimingFunction.init(name: .default)
-//        animation.isRemovedOnCompletion = false
-//        barLayer.add(animation, forKey: animation.keyPath)
-        
-//        let animation = CABasicAnimation.init(keyPath: "bounds.size.width")
-//        animation.fromValue = startPath(for: barConfiguration).bounds.width
-//        animation.toValue = endPath(for: barConfiguration, until: value).bounds.width
-//        animation.duration = duration
-//        animation.fillMode = .forwards
-//        animation.timingFunction = CAMediaTimingFunction.init(name: .default)
-//        animation.isRemovedOnCompletion = false
-//        barLayer.add(animation, forKey: animation.keyPath)
         
         let animation = CABasicAnimation.init(keyPath: keyPath())
         animation.fromValue = fromValue()
