@@ -11,6 +11,7 @@
 		A4090989220D9C3700961D1D /* ProgressBarKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4090988220D9C3700961D1D /* ProgressBarKitTests.swift */; };
 		A409098B220D9C3700961D1D /* ProgressBarKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A409097D220D9C3700961D1D /* ProgressBarKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A40909B4220DE75F00961D1D /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40909B3220DE75F00961D1D /* ProgressBar.swift */; };
+		A43C4F4322102DE300AEF0E8 /* ProgressBarConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43C4F4222102DE300AEF0E8 /* ProgressBarConfigurations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,7 @@
 		A4090988220D9C3700961D1D /* ProgressBarKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarKitTests.swift; sourceTree = "<group>"; };
 		A409098A220D9C3700961D1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A40909B3220DE75F00961D1D /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
+		A43C4F4222102DE300AEF0E8 /* ProgressBarConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarConfigurations.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				A40909B3220DE75F00961D1D /* ProgressBar.swift */,
+				A43C4F4222102DE300AEF0E8 /* ProgressBarConfigurations.swift */,
 				A409097D220D9C3700961D1D /* ProgressBarKit.h */,
 				A409097E220D9C3700961D1D /* Info.plist */,
 			);
@@ -199,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A40909B4220DE75F00961D1D /* ProgressBar.swift in Sources */,
+				A43C4F4322102DE300AEF0E8 /* ProgressBarConfigurations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
