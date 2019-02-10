@@ -20,11 +20,11 @@ public class ProgressBar: NSObject {
     
     // MARK: Track and Bar Configurations
     
-    /// The colour of the progress bar's track.
-    var trackColour: UIColor
+    /// The colour(s) of the progress bar's track.
+    var trackColour: [UIColor]
     
-    /// The colour of the progress bar's bar.
-    var barColour: UIColor
+    /// The colour(s) of the progress bar's bar.
+    var barColour: [UIColor]
     
     /// The configurations for the progress bar's track.
     var trackConfigurations: [PBTrackConfiguration]
@@ -102,8 +102,8 @@ public class ProgressBar: NSObject {
     
     // MARK: Layers
     
-    private var trackLayer: CAShapeLayer!
-    private var barLayer: CAShapeLayer!
+    private var trackLayer: CALayer!
+    private var barLayer: CALayer!
     
     // MARK: - Initializers
     
@@ -188,7 +188,7 @@ public class ProgressBar: NSObject {
     ///
     /// let bar = ProgressBar(trackColour: .black, barColour: .purple, configurations: [.bar: barConfig])
     /// ```
-    public init(trackColour: UIColor, barColour: UIColor, configurations: [PBConfigurations: Any] = [:]) {
+    public init(trackColour: [UIColor], barColour: [UIColor], configurations: [PBConfigurations: Any] = [:]) {
         self.trackColour = trackColour
         self.barColour = barColour
         
@@ -237,21 +237,43 @@ private extension ProgressBar {
     // MARK: - Track
     
     func layoutTrack() {
-        trackLayer = CAShapeLayer.init()
-        trackLayer.path = endPath(until: 1).cgPath
-        trackLayer.fillColor = trackColour.cgColor
-        
+        trackLayer = layoutLayer(path: endPath(until: 1), fill: trackColour)
         containerView.layer.insertSublayer(trackLayer, at: 0)
     }
     
     // MARK: - Bar
     
     func layoutBar() {
-        barLayer = CAShapeLayer.init()
-        barLayer.path = startPath(for: barConfiguration).cgPath
-        barLayer.fillColor = barColour.cgColor
-        
+        barLayer = layoutLayer(path: startPath(for: barConfiguration), fill: barColour)
         containerView.layer.insertSublayer(barLayer, at: 1)
+    }
+    
+    // MARK: - Layer Creations
+    
+    func layoutLayer(path: UIBezierPath, fill colours: [UIColor]) -> CALayer {
+        if isSolid(colours), let colour = colours.first {
+            return layoutShapeLayer(path: path, fill: colour)
+        }
+        else {
+            return layoutGradientLayer(path: path, fill: colours)
+        }
+    }
+    
+    func layoutShapeLayer(path: UIBezierPath, fill colour: UIColor) -> CAShapeLayer {
+        let layer = CAShapeLayer.init()
+        layer.path = path.cgPath
+        layer.fillColor = colour.cgColor
+        return layer
+    }
+    
+    func layoutGradientLayer(path: UIBezierPath, fill colours: [UIColor]) -> CAGradientLayer {
+        let layer = CAGradientLayer.init()
+        layer.anchorPoint = .zero
+        layer.bounds = path.bounds
+        layer.startPoint = CGPoint.init(x: 0, y: 0)
+        layer.endPoint = CGPoint.init(x: 1, y: 0)
+        layer.colors = colours.map({ $0.cgColor })
+        return layer
     }
     
     // MARK: - Masking
@@ -300,15 +322,35 @@ private extension ProgressBar {
     func makeProgress(until rawValue: CGFloat, with duration: Double) {
         let value = sanitise(rawValue)
         
-        let animation = CABasicAnimation.init(keyPath: "path")
-        animation.fromValue = startPath(for: barConfiguration).cgPath
-        animation.toValue = endPath(for: barConfiguration, until: value).cgPath
+//        let animation = CABasicAnimation.init(keyPath: "path")
+//        animation.fromValue = startPath(for: barConfiguration).cgPath
+//        animation.toValue = endPath(for: barConfiguration, until: value).cgPath
+//        animation.duration = duration
+//        animation.fillMode = .forwards
+//        animation.timingFunction = CAMediaTimingFunction.init(name: .default)
+//        animation.isRemovedOnCompletion = false
+//        barLayer.add(animation, forKey: animation.keyPath)
+        
+//        let animation = CABasicAnimation.init(keyPath: "bounds.size.width")
+//        animation.fromValue = startPath(for: barConfiguration).bounds.width
+//        animation.toValue = endPath(for: barConfiguration, until: value).bounds.width
+//        animation.duration = duration
+//        animation.fillMode = .forwards
+//        animation.timingFunction = CAMediaTimingFunction.init(name: .default)
+//        animation.isRemovedOnCompletion = false
+//        barLayer.add(animation, forKey: animation.keyPath)
+        
+        let animation = CABasicAnimation.init(keyPath: keyPath())
+        animation.fromValue = fromValue()
+        animation.toValue = to(value)
         animation.duration = duration
         animation.fillMode = .forwards
         animation.timingFunction = CAMediaTimingFunction.init(name: .default)
         animation.isRemovedOnCompletion = false
         barLayer.add(animation, forKey: animation.keyPath)
-        
+
+        // only change `currentPercentage` after adding animation, since
+        // `fromValue` is populated based on the `currentPercentage`
         currentPercentage = value
     }
     
@@ -321,5 +363,25 @@ private extension ProgressBar {
         default:
             return value
         }
+    }
+    
+    func keyPath() -> String {
+        return isSolid(barColour) ? "path" : "bounds.size.width"
+    }
+    
+    func fromValue() -> Any {
+        let path = startPath(for: barConfiguration)
+        return isSolid(barColour) ? path.cgPath : path.bounds.width
+    }
+    
+    func to(_ value: CGFloat) -> Any {
+        let path = endPath(for: barConfiguration, until: value)
+        return isSolid(barColour) ? path.cgPath : path.bounds.width
+    }
+    
+    // MARK: - Utilities
+    
+    func isSolid(_ colour: [UIColor]) -> Bool {
+        return colour.count == 1
     }
 }
