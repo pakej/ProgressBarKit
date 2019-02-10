@@ -1,5 +1,9 @@
 # Changelogs
 
+## 1.0.1
+
+- Fixed README issue
+
 ## 1.0.0
 
 - Official progress bar stable release
