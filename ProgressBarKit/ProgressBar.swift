@@ -10,7 +10,7 @@ import Foundation
 
 /// An animatable and customizable progress bar.
 public class ProgressBar: NSObject {
-    
+
     // MARK: - Properties
     
     // MARK: Parent
