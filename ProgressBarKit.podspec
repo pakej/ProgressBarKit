@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name         = "ProgressBarKit"
-  s.version      = "0.0.1"
-  s.summary      = "An animatable progress bar that can be used as a single or multiple bars."
+  s.version      = "1.0.0"
+  s.summary      = "An animatable and customizable progress bar that can be used as a single or multiple bars."
 
   s.description  = <<-DESC
   An animatable and customizable progress bar that can be used as a single bar, or segmented into multiple bars.
