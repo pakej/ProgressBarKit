@@ -25,7 +25,7 @@ For a full deep-dive, refer to the [full documentation](https://zaimramlan.githu
 
 It's very easy to start using the progress bar. Simply import, initialize, setup and set progress value.
 
-But... i need more customization. Sure, go straight [here](#AdvancedUsage)!
+But... i need more customization. Sure, go straight [here](#advanced-usage)!
 
 ### Import and Initialize
 
@@ -66,7 +66,7 @@ This method should only be called after calling `setupProgressBar(in:)` to ensur
 
 ## Advanced Usage
 
-So your _designer_ put or _you_ wanted a little bit more challenge to your design. Fret not, ProgressBarKit got you covered*!
+So your _designer_ put or _you_ wanted a little bit more challenge to your design. Fret not, ProgressBarKit _mostly_ got you covered!
 
 ### 1 progress bar with default BAR and TRACK configuration
 
