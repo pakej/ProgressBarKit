@@ -1,4 +1,5 @@
 # ProgressBarKit
+![pod-version](https://cocoapod-badges.herokuapp.com/v/ProgressBarKit/badge.png) ![pod-platform](https://cocoapod-badges.herokuapp.com/p/ProductivityKit/badge.png)  
 
 An animatable progress bar that can easily be used to display progress.
 
@@ -18,11 +19,13 @@ pod 'ProgressBarKit'
 
 ## Documentation
 
-
+For a full deep-dive, refer to the [full documentation](https://zaimramlan.github.io/ProgressBarKit/).
 
 ## Usage
 
-You can use the progress bar in 3 simple steps.
+It's very easy to start using the progress bar. Simply import, initialize, setup and set progress value.
+
+But... i need more customization. Sure, go straight [here](#AdvancedUsage)!
 
 ### Import and Initialize
 
@@ -31,7 +34,7 @@ import ProgressBarKit
 
 class ViewController: UIViewController {
     lazy var progressBar: ProgressBar = {
-        ProgressBar(roundedCorners: [.allCorners], cornerRadii: CGSize(width: 8, height: 8))
+        ProgressBar(trackColour: [.black], barColour: [.purple])
     }()
 }
 ```
@@ -45,7 +48,7 @@ progressBar.setup(in: myContainerView)
 ```
 
 <sub>Important:  
-This method should only be called in `viewDidLayoutSubviews` to ensure the container view has already been laid out correctly by AutoLayout.</sub>
+This method should only be called ONCE, and only in `viewDidLayoutSubviews` to ensure the `container` has already been laid out correctly by AutoLayout.</sub>
 
 ### Set Progress Value
 
@@ -59,7 +62,65 @@ progressBar.setProgressBarValue(to: 0.75)
 ```
 
 <sub>Note:  
-This method should only be called after calling `setupProgressBar(in:roundingCorners:cornerRadii:)` to ensure the progress bar is already initialized.</sub>
+This method should only be called after calling `setupProgressBar(in:)` to ensure the progress bar is already initialized.</sub>
+
+## Advanced Usage
+
+So your _designer_ put or _you_ wanted a little bit more challenge to your design. Fret not, ProgressBarKit got you covered*!
+
+### 1 progress bar with default BAR and TRACK configuration
+
+ ```swift
+ let bar = ProgressBar(trackColour: .black, barColour: .purple)
+ ```
+
+### 1 progress bar with custom BAR configuration
+
+ ```swift
+ let barConfig = PBBarConfiguration(
+     roundingCorners: [.allCorners],
+     cornerRadii: CGSize(width: 8, height: 8)
+ )
+
+ let bar = ProgressBar(trackColour: .black, barColour: .purple, configurations: [.bar: barConfig])
+ ```
+
+### 1 progress bar with custom TRACK configurations
+
+ ```swift
+ let trackConfig = PBTrackConfiguration(
+     roundingCorners: [.allCorners],
+     cornerRadii: CGSize(width: 8, height: 8),
+     edgeInsets: UIEdgeInsets(top: 2.5, left: 2.5, bottom: 2.5, right: 2.5)
+ )
+
+ let bar = ProgressBar(trackColour: .black, barColour: .purple, configurations: [.track: [trackConfig]])
+ ```
+
+### 2 or more progress bars with default and custom TRACK configurations
+
+ ```swift
+ let firstTrackConfig = PBTrackConfiguration(
+     roundingCorners: [.topLeft, .bottomLeft],
+     cornerRadii: CGSize(width: 8, height: 8),
+     edgeInsets: UIEdgeInsets(top: 2.5, left: 2.5, bottom: 2.5, right: 2.5)
+ )
+
+ let lastTrackConfig = PBTrackConfiguration(
+     roundingCorners: [.topRight, .bottomRight],
+     cornerRadii: CGSize(width: 8, height: 8),
+     edgeInsets: UIEdgeInsets(top: 2.5, left: 2.5, bottom: 2.5, right: 2.5)
+ )
+
+ // use default values
+ let otherTrackConfig = PBTrackConfiguration()
+
+ // this will display 3 tracks with different configurations, and
+ // you can have some fun here by adding more configs into the array, and
+ // watch the magic happens!
+ let configs = [firstTrackConfig, otherTrackConfig, lastTrackConfig]
+ let bar = ProgressBar(trackColour: .black, barColour: .purple, configurations: [.track: configs])
+ ```
 
 ## License
 
