@@ -13,36 +13,39 @@ public class ProgressBar: NSObject {
     
     // MARK: - Properties
     
-    // MARK: Internal
-    
-    /// The background colour of the progress bar before it is filled with
-    /// the bar.
-    var trackColour: UIColor
-    
-    /// The colour of the progress bar.
-    var barColour: UIColor
-    
-    /// Corners to be rounded.
-    var cornersToRound: UIRectCorner
-    
-    /// Corner radius for each corners to be rounded.
-    var cornerRadii: CGSize
+    // MARK: Parent
     
     /// Container where the progress bar will be initialized in.
     var containerView: UIView!
+    
+    // MARK: Track and Bar Configurations
+    
+    /// The colour of the progress bar's track.
+    var trackColour: UIColor
+    
+    /// The colour of the progress bar's bar.
+    var barColour: UIColor
+    
+    /// The configurations for the progress bar's track.
+    var trackConfigurations: [PBTrackConfiguration]
+    
+    /// The configurations for the progress bar's bar.
+    var barConfiguration: PBBarConfiguration
     
     /// Current percentage of the width of the progress bar
     /// to be displayed.
     var currentPercentage: CGFloat = 0
     
-    /// Gets the value of the starting frame where only the height value is initialized.
+    // MARK: Frames
+    
+    /// Gets the value of the starting frame where the `height` is initialized
+    /// based on the containerView's `height`, and the `width` is based on the
+    /// current percentage of the containerView's `width`.
     ///
     /// - Returns: A CGRect that represents the starting frame.
-    ///
-    /// All frame values are 0, except for the `height`. This is to prepare
-    /// the bar to animate forward by expanding only the `width.
     func startFrame() -> CGRect {
         var frame = CGRect.zero
+        frame.size.width = currentPercentage * containerView.frame.size.width
         frame.size.height = containerView.frame.height
         return frame
     }
@@ -50,37 +53,57 @@ public class ProgressBar: NSObject {
     /// Gets the value of the ending frame where the height value is not zero and
     /// the width value is initialized based on the value given.
     ///
-    /// - Parameter value: The percentage (in decimal number) for the progress bar's width to expand to,
+    /// - Parameter value: The percentage (in decimals) for the progress bar's width to expand to,
     ///                    within a minimum value of 0, and a maximum value of 1.
     /// - Returns: A CGRect that represents the ending frame.
     ///
-    /// The `height` value is based on the progress bar container's height.
+    /// The `width` and `height` value is determined as follows:
     ///
-    /// The `width` value is determined based on the percentage value of the
-    /// progress bar container's width.
+    ///     let width = value * containerView.frame.width
+    ///     let height = containerView.frame.height
+    ///
     func endFrame(until value: CGFloat) -> CGRect {
         var frame = CGRect.zero
-        frame.size.width = value * containerView.frame.size.width
+        frame.size.width = value * containerView.frame.width
         frame.size.height = containerView.frame.height
         return frame
     }
     
-    /// The starting path for the progress bar.
-    func startPath() -> UIBezierPath {
-        let path = UIBezierPath.init(roundedRect: startFrame(), byRoundingCorners: cornersToRound, cornerRadii: cornerRadii)
-        return path
+    // MARK: Paths
+    
+    /// The starting path for the progress bar's bar.
+    func startPath(for config: Any? = nil) -> UIBezierPath {
+        let config = parse(config: config)
+        return UIBezierPath.init(roundedRect: startFrame(), byRoundingCorners: config.roundingCorners, cornerRadii: config.cornerRadii)
     }
     
-    /// The end path for the progress bar based on the given percentage value (in decimal number).
-    func endPath(until value: CGFloat) -> UIBezierPath {
-        let path = UIBezierPath.init(roundedRect: endFrame(until: value), byRoundingCorners: cornersToRound, cornerRadii: cornerRadii)
-        return path
+    /// The end path for the progress bar based on the given percentage value (in decimals).
+    func endPath(for config: Any? = nil, until value: CGFloat) -> UIBezierPath {
+        let config = parse(config: config)
+        return UIBezierPath.init(roundedRect: endFrame(until: value), byRoundingCorners: config.roundingCorners, cornerRadii: config.cornerRadii)
     }
     
-    // MARK: Private
+    private func parse(config: Any?) -> (roundingCorners: UIRectCorner, cornerRadii: CGSize) {
+        var roundingCorners: UIRectCorner = []
+        var cornerRadii: CGSize = .zero
+        
+        if let config = config as? PBTrackConfiguration {
+            roundingCorners = config.roundingCorners
+            cornerRadii = config.cornerRadii
+        }
+        
+        if let config = config as? PBBarConfiguration {
+            roundingCorners = config.roundingCorners
+            cornerRadii = config.cornerRadii
+        }
+        
+        return (roundingCorners, cornerRadii)
+    }
+    
+    // MARK: Layers
     
     private var trackLayer: CAShapeLayer!
-    private var progressLayer: CAShapeLayer!
+    private var barLayer: CAShapeLayer!
     
     // MARK: - Initialization
     
@@ -88,18 +111,19 @@ public class ProgressBar: NSObject {
     /// based on the given (optional) corner radii.
     ///
     /// - Parameters:
-    ///   - trackColour: The background UIColor of the progress bar.
-    ///   - barColour: The progress bar's UIColor.
-    ///   - roundingCorners: The corners to be rounded. (optional)
-    ///   - cornerRadii: The value to round each corners. (optional)
-    public init(trackColour: UIColor, barColour: UIColor, roundedCorners: UIRectCorner = [], cornerRadii: CGSize = CGSize.zero) {
+    ///   - trackColour: The progress bar's track UIColor.
+    ///   - barColour: The progress bar's bar UIColor.
+    ///   - configurations: The configurations for the progress bar's track and bar. (optional)
+    public init(trackColour: UIColor, barColour: UIColor, configurations: [PBConfigurations: Any] = [:]) {
         self.trackColour = trackColour
         self.barColour = barColour
-        self.cornersToRound = roundedCorners
-        self.cornerRadii = cornerRadii
+        
+        self.trackConfigurations = configurations[.track] as? [PBTrackConfiguration] ?? []
+        self.barConfiguration = configurations[.bar] as? PBBarConfiguration ?? PBBarConfiguration.init()
+        
         super.init()
     }
-
+    
     // MARK: - Main
     
     /// Sets up the progress bar within the given container view.
@@ -107,20 +131,22 @@ public class ProgressBar: NSObject {
     /// - Parameters:
     ///   - container: The container `view` to initialize the progress bar in.
     ///
-    /// This method should only be called in `viewDidLayoutSubviews` to ensure the container has already been laid out
+    /// This method should only be called ONCE, and only in `viewDidLayoutSubviews` to ensure the `container` has already been laid out
     /// correctly by AutoLayout.
     public func setupProgressBar(in container: UIView) {
         self.containerView = container
         
         layoutTrack()
         layoutBar()
+        layoutMask()
     }
     
     /// Animates the progress bar from `0` until the given percentage value (in decimal number)
     /// of the total width of the progress bar container view.
     ///
-    /// - Parameter value: The percentage (in decimal number) for the progress bar's width to expand to,
-    ///                    within a minimum value of 0, and a maximum value of 1.
+    /// - Parameters:
+    ///   - value: The percentage (in decimal number) for the progress bar's width to expand to,
+    ///            within a minimum value of 0, and a maximum value of 1.
     ///
     /// This method should only be called after calling `setupProgressBar(in:roundingCorners:cornerRadii:)` to ensure
     /// the progress bar is already initialized.
@@ -146,25 +172,79 @@ private extension ProgressBar {
     // MARK: - Bar
     
     func layoutBar() {
-        progressLayer = CAShapeLayer.init()
-        progressLayer.path = startPath().cgPath
-        progressLayer.fillColor = barColour.cgColor
+        barLayer = CAShapeLayer.init()
+        barLayer.path = startPath(for: barConfiguration).cgPath
+        barLayer.fillColor = barColour.cgColor
         
-        containerView.layer.insertSublayer(progressLayer, at: 1)
+        containerView.layer.insertSublayer(barLayer, at: 1)
+    }
+    
+    // MARK: - Masking
+    
+    func layoutMask() {
+        let mask = createMask()
+        trackLayer.mask = mask.track
+        barLayer.mask = mask.bar
+    }
+    
+    func createMask() -> (track: CAShapeLayer, bar: CAShapeLayer) {
+        let frame = endFrame(until: 1)
+        let widthPerBar = frame.width / CGFloat(trackConfigurations.count)
+        
+        let finalPath = UIBezierPath()
+        for i in 0...trackConfigurations.count - 1 {
+            
+            let config = trackConfigurations[i]
+            let edgeInsets = config.edgeInsets
+            
+            let widthPerBarWithInsets = widthPerBar - edgeInsets.left - edgeInsets.right
+            let heightWithInsets = frame.height - edgeInsets.top - edgeInsets.bottom
+            
+            var rect = CGRect.zero
+            rect.origin.x = (CGFloat(i) * widthPerBar) + edgeInsets.left
+            rect.origin.y = edgeInsets.top
+            rect.size = CGSize.init(width: widthPerBarWithInsets, height: heightWithInsets)
+            
+            let path = UIBezierPath.init(roundedRect: rect, byRoundingCorners: config.roundingCorners, cornerRadii: config.cornerRadii)
+            finalPath.append(path)
+        }
+        
+        let trackMask = CAShapeLayer.init()
+        trackMask.path = finalPath.cgPath
+        trackMask.fillColor = UIColor.white.cgColor
+        
+        let barMask = CAShapeLayer.init()
+        barMask.path = finalPath.cgPath
+        barMask.fillColor = UIColor.white.cgColor
+        
+        return (trackMask, barMask)
     }
     
     // MARK: - Progress Bar Expansion
     
-    func makeProgress(until value: CGFloat) {
+    func makeProgress(until rawValue: CGFloat) {
+        let value = sanitise(rawValue)
+        
         let animation = CABasicAnimation.init(keyPath: "path")
-        animation.fromValue = startPath().cgPath
-        animation.toValue = endPath(until: value).cgPath
-        animation.duration = 0.5
-        animation.fillMode =  value >= currentPercentage ? .forwards : .backwards
+        animation.fromValue = startPath(for: barConfiguration).cgPath
+        animation.toValue = endPath(for: barConfiguration, until: value).cgPath
+        animation.duration = 0.75
+        animation.fillMode = .forwards
         animation.timingFunction = CAMediaTimingFunction.init(name: .default)
         animation.isRemovedOnCompletion = false
-        progressLayer.add(animation, forKey: nil)
+        barLayer.add(animation, forKey: nil)
         
         currentPercentage = value
+    }
+    
+    func sanitise(_ value: CGFloat) -> CGFloat {
+        switch value {
+        case let x where x > 1:
+            return 1
+        case let x where x < 0:
+            return 0
+        default:
+            return value
+        }
     }
 }
