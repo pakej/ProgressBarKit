@@ -1,5 +1,9 @@
 # Changelogs
 
+## 1.0.3
+
+- Provide default values for `PBTrackConfiguration` and `PBBarConfiguration`
+
 ## 1.0.2
 
 - Updated missing docs
