@@ -71,7 +71,7 @@ So your _designer_ put or _you_ wanted a little bit more challenge to your desig
 ### 1 progress bar with default BAR and TRACK configuration
 
  ```swift
- let bar = ProgressBar(trackColour: .black, barColour: .purple)
+ let bar = ProgressBar(trackColour: [.black], barColour: [.purple])
  ```
 
 ### 1 progress bar with custom BAR configuration
@@ -82,7 +82,7 @@ So your _designer_ put or _you_ wanted a little bit more challenge to your desig
      cornerRadii: CGSize(width: 8, height: 8)
  )
 
- let bar = ProgressBar(trackColour: .black, barColour: .purple, configurations: [.bar: barConfig])
+ let bar = ProgressBar(trackColour: [.black], barColour: [.purple], configurations: [.bar: barConfig])
  ```
 
 ### 1 progress bar with custom TRACK configurations
@@ -94,7 +94,7 @@ So your _designer_ put or _you_ wanted a little bit more challenge to your desig
      edgeInsets: UIEdgeInsets(top: 2.5, left: 2.5, bottom: 2.5, right: 2.5)
  )
 
- let bar = ProgressBar(trackColour: .black, barColour: .purple, configurations: [.track: [trackConfig]])
+ let bar = ProgressBar(trackColour: [.black], barColour: [.purple], configurations: [.track: [trackConfig]])
  ```
 
 ### 2 or more progress bars with default and custom TRACK configurations
@@ -119,7 +119,7 @@ So your _designer_ put or _you_ wanted a little bit more challenge to your desig
  // you can have some fun here by adding more configs into the array, and
  // watch the magic happens!
  let configs = [firstTrackConfig, otherTrackConfig, lastTrackConfig]
- let bar = ProgressBar(trackColour: .black, barColour: .purple, configurations: [.track: configs])
+ let bar = ProgressBar(trackColour: [.black], barColour: [.purple], configurations: [.track: configs])
  ```
 
 ## License
