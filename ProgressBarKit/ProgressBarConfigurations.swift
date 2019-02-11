@@ -32,17 +32,14 @@ public struct PBTrackConfiguration {
     public var edgeInsets: UIEdgeInsets = .zero
     
     // MARK: - Initializers
-
-    /// Initialize `PBTrackConfiguration` with default values.
-    public init() {}
     
     /// Initialize `PBTrackConfiguration` with the given values.
     ///
     /// - Parameters:
-    ///   - roundingCorners: The corners to be rounded.
-    ///   - cornerRadii: The value to round each corners.
-    ///   - edgeInsets: The edge insets of the progress bar.
-    public init(roundingCorners: UIRectCorner, cornerRadii: CGSize, edgeInsets: UIEdgeInsets) {
+    ///   - roundingCorners: The corners to be rounded. (optional)
+    ///   - cornerRadii: The value to round each corners. (optional)
+    ///   - edgeInsets: The edge insets of the progress bar. (optional)
+    public init(roundingCorners: UIRectCorner = [], cornerRadii: CGSize = .zero, edgeInsets: UIEdgeInsets = .zero) {
         self.roundingCorners = roundingCorners
         self.cornerRadii = cornerRadii
         self.edgeInsets = edgeInsets
@@ -61,16 +58,13 @@ public struct PBBarConfiguration {
     public var cornerRadii: CGSize = .zero
     
     // MARK: - Initializers
-
-    /// Initialize `PBBarConfiguration` with default values.
-    public init() {}
     
     /// Initialize `PBBarConfiguration` with the given values.
     ///
     /// - Parameters:
-    ///   - roundingCorners: The corners to be rounded.
-    ///   - cornerRadii: The value to round each corners.
-    public init(roundingCorners: UIRectCorner, cornerRadii: CGSize) {
+    ///   - roundingCorners: The corners to be rounded. (optional)
+    ///   - cornerRadii: The value to round each corners. (optional)
+    public init(roundingCorners: UIRectCorner = [], cornerRadii: CGSize = .zero) {
         self.roundingCorners = roundingCorners
         self.cornerRadii = cornerRadii
     }
