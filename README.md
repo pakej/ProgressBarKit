@@ -23,7 +23,11 @@ For a full deep-dive, refer to the [full documentation](https://zaimramlan.githu
 
 ## Usage
 
-It's very easy to start using the progress bar. Simply import, initialize, setup and set progress value.
+It's very easy to start using the progress bar. Simply:
+
+1. Import and initialize
+1. Setup
+1. Set progress value
 
 But... i need more customization. Sure, go straight [here](#advanced-usage)!
 
@@ -120,6 +124,22 @@ So your _designer_ put or _you_ wanted a little bit more challenge to your desig
  // watch the magic happens!
  let configs = [firstTrackConfig, otherTrackConfig, lastTrackConfig]
  let bar = ProgressBar(trackColour: [.black], barColour: [.purple], configurations: [.track: configs])
+ ```
+
+ ### 2 or more progress bars with GRADIENT track and bars
+
+ ```swift
+ // use default values
+ let defaultTrackConfig = PBTrackConfiguration()
+
+ // this will display the track and bar in gradient colours
+ // you can have some fun here by adding more colours into the array, and
+ // watch the gradient colour changes!
+ let gradientTrackColours: [UIColor] = [.black, .white]
+ let gradientBarColours: [UIColor] = [.red, .purple]
+
+ let configs = [defaultTrackConfig, defaultTrackConfig, defaultTrackConfig]
+ let bar = ProgressBar(trackColour: gradientTrackColours, barColour: gradientBarColours, configurations: [.track: configs])
  ```
 
 ## License
