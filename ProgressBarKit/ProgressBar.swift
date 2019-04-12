@@ -10,7 +10,7 @@ import Foundation
 
 /// An animatable and customizable progress bar.
 public class ProgressBar: NSObject {
-
+    
     // MARK: - Properties
     
     // MARK: Parent
@@ -103,6 +103,7 @@ public class ProgressBar: NSObject {
     // MARK: Layers
     
     private var trackLayer: CALayer!
+    private var topBarLayer: CALayer!
     private var barLayer: CALayer!
     
     // MARK: - Initializers
@@ -199,7 +200,9 @@ private extension ProgressBar {
     
     func layoutBar() {
         barLayer = layoutLayer(path: startPath(for: barConfiguration), fill: barColour)
-        containerView.layer.insertSublayer(barLayer, at: 1)
+        topBarLayer = layoutLayer(path: startPath(for: barConfiguration), fill: [.clear])
+        topBarLayer.insertSublayer(barLayer, at: 1)
+        containerView.layer.insertSublayer(topBarLayer, at: 1)
     }
     
     // MARK: - Layer Creations
@@ -237,14 +240,16 @@ private extension ProgressBar {
     // MARK: - Masking
     
     func layoutMask() {
-        let mask = createMask()
+        let mask = createMasks()
         trackLayer.mask = mask.track
+        topBarLayer.mask = mask.topBar
         barLayer.mask = mask.bar
     }
     
-    func createMask() -> (track: CAShapeLayer, bar: CAShapeLayer) {
+    func createMasks() -> (track: CAShapeLayer, topBar: CAShapeLayer, bar: CAShapeLayer) {
         let frame = endFrame(until: 1)
         let widthPerBar = frame.width / CGFloat(trackConfigurations.count)
+        let maskColour = UIColor.white.cgColor
         
         let finalPath = UIBezierPath()
         for i in 0...trackConfigurations.count - 1 {
@@ -266,29 +271,31 @@ private extension ProgressBar {
         
         let trackMask = CAShapeLayer.init()
         trackMask.path = finalPath.cgPath
-        trackMask.fillColor = UIColor.white.cgColor
+        trackMask.fillColor = maskColour
+        
+        let topBarMask = CAShapeLayer.init()
+        topBarMask.path = finalPath.cgPath
+        topBarMask.fillColor = maskColour
         
         let barMask = CAShapeLayer.init()
-        barMask.path = finalPath.cgPath
-        barMask.fillColor = UIColor.white.cgColor
+        barMask.path = startPath(for: barConfiguration).cgPath
+        barMask.fillColor = maskColour
         
-        return (trackMask, barMask)
+        return (trackMask, topBarMask, barMask)
     }
     
     // MARK: - Progress Bar Expansion
     
     func makeProgress(until rawValue: CGFloat, with duration: Double) {
+        var animation: CABasicAnimation
         let value = sanitise(rawValue)
         
-        let animation = CABasicAnimation.init(keyPath: keyPath())
-        animation.fromValue = fromValue()
-        animation.toValue = to(value)
-        animation.duration = duration
-        animation.fillMode = .forwards
-        animation.timingFunction = CAMediaTimingFunction.init(name: .default)
-        animation.isRemovedOnCompletion = false
+        animation = createAnimation(for: barLayer.mask, value: value, duration: duration)
+        barLayer.mask?.add(animation, forKey: animation.keyPath)
+        
+        animation = createAnimation(for: barLayer, value: value, duration: duration)
         barLayer.add(animation, forKey: animation.keyPath)
-
+        
         // only change `currentPercentage` after adding animation, since
         // `fromValue` is populated based on the `currentPercentage`
         currentPercentage = value
@@ -305,23 +312,38 @@ private extension ProgressBar {
         }
     }
     
-    func keyPath() -> String {
-        return isSolid(barColour) ? "path" : "bounds.size.width"
+    func createAnimation(for layer: CALayer?, value: CGFloat, duration: CFTimeInterval) -> CABasicAnimation {
+        let animation = CABasicAnimation.init(keyPath: keyPath(for: layer))
+        animation.fromValue = fromValue(for: layer)
+        animation.toValue = to(value, for: layer)
+        animation.duration = duration
+        animation.fillMode = .forwards
+        animation.timingFunction = CAMediaTimingFunction.init(name: .default)
+        animation.isRemovedOnCompletion = false
+        return animation
     }
     
-    func fromValue() -> Any {
+    func keyPath(for layer: CALayer?) -> String {
+        return isMask(layer) ? "path" : "bounds.size.width"
+    }
+    
+    func fromValue(for layer: CALayer?) -> Any {
         let path = startPath(for: barConfiguration)
-        return isSolid(barColour) ? path.cgPath : path.bounds.width
+        return isMask(layer) ? path.cgPath : path.bounds.width
     }
     
-    func to(_ value: CGFloat) -> Any {
+    func to(_ value: CGFloat, for layer: CALayer?) -> Any {
         let path = endPath(for: barConfiguration, until: value)
-        return isSolid(barColour) ? path.cgPath : path.bounds.width
+        return isMask(layer) ? path.cgPath : path.bounds.width
     }
     
     // MARK: - Utilities
     
     func isSolid(_ colour: [UIColor]) -> Bool {
         return colour.count == 1
+    }
+    
+    func isMask(_ layer: CALayer?) -> Bool {
+        return (layer as? CAShapeLayer) != nil
     }
 }
