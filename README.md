@@ -1,5 +1,5 @@
 # ProgressBarKit
-![pod-version](https://cocoapod-badges.herokuapp.com/v/ProgressBarKit/badge.png) ![pod-platform](https://cocoapod-badges.herokuapp.com/p/ProductivityKit/badge.png)  
+![pod-version](https://img.shields.io/cocoapods/v/ProgressBarKit) ![pod-platform](https://img.shields.io/cocoapods/p/ProgressBarKit)  
 
 An animatable progress bar that can easily be used to display progress.
 
@@ -19,7 +19,7 @@ pod 'ProgressBarKit'
 
 ## Documentation
 
-For a full deep-dive, refer to the [full documentation](https://zaimramlan.github.io/ProgressBarKit/).
+For a full deep-dive, refer to the [full documentation](https://lambdable.github.io/ProgressBarKit/).
 
 ## Usage
 
@@ -142,6 +142,8 @@ So your _designer_ put or _you_ wanted a little bit more challenge to your desig
  let bar = ProgressBar(trackColour: gradientTrackColours, barColour: gradientBarColours, configurations: [.track: configs])
  ```
 
-## License
+## Contributing
+We'd love to accept your patches and contributions to this project! Checkout [contributing](CONTRIBUTING.md) and [code of conduct](CODE_OF_CONDUCT.md) to learn more.
 
-Under the MIT license. See LICENSE file for details
+## License
+See LICENSE file for details
