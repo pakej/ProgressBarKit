@@ -1,5 +1,15 @@
 # Changelogs
 
+## 1.2.0
+
+- Updated LICENSE
+- Updated docs
+- Updated badges to Shields
+
+## 1.1.0
+
+- Add gradient support
+
 ## 1.0.3
 
 - Provide default values for `PBTrackConfiguration` and `PBBarConfiguration`
