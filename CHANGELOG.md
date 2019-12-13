@@ -1,5 +1,9 @@
 # Changelogs
 
+## 1.2.1
+
+- Updated docs & readme
+
 ## 1.2.0
 
 - Updated LICENSE

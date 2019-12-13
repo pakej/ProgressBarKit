@@ -1,5 +1,5 @@
 # ProgressBarKit
-![pod-version](https://img.shields.io/cocoapods/v/ProgressBarKit) ![pod-platform](https://img.shields.io/cocoapods/p/ProgressBarKit)  
+![pod-version](https://img.shields.io/cocoapods/v/ProgressBarKit) ![pod-platform](https://img.shields.io/cocoapods/p/ProgressBarKit)
 
 An animatable progress bar that can easily be used to display progress.
 
@@ -19,7 +19,7 @@ pod 'ProgressBarKit'
 
 ## Documentation
 
-For a full deep-dive, refer to the [full documentation](https://lambdable.github.io/ProgressBarKit/).
+For a full deep-dive, refer to the [full documentation](https://pakej.github.io/ProgressBarKit/).
 
 ## Usage
 
@@ -51,21 +51,21 @@ Specify the `UIView` that will be the progress bar's container view and initiali
 progressBar.setup(in: myContainerView)
 ```
 
-<sub>Important:  
+<sub>Important:
 This method should only be called ONCE, and only in `viewDidLayoutSubviews` to ensure the `container` has already been laid out correctly by AutoLayout.</sub>
 
 ### Set Progress Value
 
 Animates the progress bar from `0` until the given percentage value (in decimal number) of the total width of the progress bar container view.
 
-ie. Given, `value = 0.75` and `containerView.frame.width` is `100`  
+ie. Given, `value = 0.75` and `containerView.frame.width` is `100`
 The progress bar will only be expanded until a width of `0.75 * 100` which is 75 points.
 
 ```swift
 progressBar.setProgressBarValue(to: 0.75)
 ```
 
-<sub>Note:  
+<sub>Note:
 This method should only be called after calling `setupProgressBar(in:)` to ensure the progress bar is already initialized.</sub>
 
 ## Advanced Usage
